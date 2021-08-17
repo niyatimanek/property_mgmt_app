@@ -1,1 +1,1 @@
-# property_mgmt_app
+# property_management_app
