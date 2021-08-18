@@ -30,16 +30,23 @@ class Dashboard extends React.Component {
 	render(){
 		const userParams = this.state.user;
 		const superAdminDashboardBtn = <Link
-			        to="/superAdminDashboard"
+			        to={{ pathname: "/superAdminDashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.user
+			    		}}
 		            className="btn btn-md custom-button"
 		         	role="button"
 			    >
 		        	Go to Super Admin Dashboard
 		       	</Link>
 		const adminDashboardBtn = <Link
-			        to="/adminDashboard"
+					to={{ pathname: "/adminDashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.user
+			    		}}
 		            className="btn btn-md custom-button"
 		         	role="button"
+		         	
 			    >
 		        	Go to Admin Dashboard
 		       	</Link>

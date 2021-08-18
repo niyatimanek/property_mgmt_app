@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import Header from "../components/Header";
 
 class NewUser extends React.Component {
 	constructor(props) {
@@ -15,7 +16,9 @@ class NewUser extends React.Component {
 			is_approved: true,
 			admin_id: "",
 			owners: [],
-			errorMessage: []
+			errorMessage: [],
+			isLoggedIn: props.loggedIn,
+	      	current_user: props.user
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -23,7 +26,6 @@ class NewUser extends React.Component {
 	}
 
 	componentDidMount(){
-		debugger
 		const url = "/api/v1/users/index?role=admin";
 		fetch(url)
 			.then(response => {
@@ -105,9 +107,24 @@ class NewUser extends React.Component {
 		const approvals_list = approval_status.map((approval, index) => (
 			<option key={index} value={approval.value}>{`${approval.name}`}</option>
 		));
+		const userDashboardBtn = <Link
+					to={{ pathname: "/dashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.current_user
+			    		}}
+		            className="btn btn-sm custom-button"
+		         	role="button"
+			    >
+		        	Go to Dashboard
+		       	</Link>
+
 
 		return(
-			<div className="container mt-5">
+			<div className="container">
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
+				<div className="d-flex flex-row-reverse">
+					{userDashboardBtn}
+				</div>
 				<div className="row">
 					{ this.state.errorMessage.length > 0 &&
 						<div className="alert alert-danger" role="alert">

@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from 'react-data-table-component';
+import Header from "../components/Header";
 
 class Admins extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			admins: [],
-			role: "admin"
+			role: "admin",
+			isLoggedIn: props.loggedIn,
+	      	current_user: props.user		
 		};
 	}
 
@@ -76,7 +79,6 @@ class Admins extends React.Component {
 	    const { admins } = this.state;
 	    const role = this.state.role;
 	  	const allAdmins = <DataTable
-					        title="All Admins"
 					        columns={columns}
 					        data={admins}
 					      />
@@ -89,33 +91,47 @@ class Admins extends React.Component {
 	      </div>
 	    );
 
+	    const userDashboardBtn = <Link
+					to={{ pathname: "/dashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.current_user
+			    		}}
+		            className="btn btn-sm custom-button"
+		         	role="button"
+			    >
+		        	Go to Dashboard
+		       	</Link>
+
 	    return (
-			<>
-				<section className="jumbotron jumbotron-fluid text-center">
-					<div className="container py-5">
-						<h1 className="display-4">admins</h1>
-						<p className="lead text-muted">
-						  All the admins are listed below
-						</p>
-					</div>
-				</section>
+			<div className="container">
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
+				<div className="d-flex flex-row-reverse">
+					{userDashboardBtn}
+				</div>
 				<div className="py-5">
 					<main className="container">
 						<div className="text-right mb-3">
-							<Link to={`/newUser/${role}`} className="btn custom-button">
+							<Link to={`/newUser/${role}`} className="btn btn-md custom-button">
 								Create New Admin
 							</Link>
 							&nbsp;&nbsp;&nbsp;
-							<Link to="/superAdminDashboard" className="btn custom-button">
+							<Link to="/superAdminDashboard" className="btn btn-md custom-button">
 							 	Go to Super Admin Dashboard
 							</Link>
 						</div>
-						<div className="row">
-						  { admins.length > 0 ? allAdmins : noAdmins }
-						</div>
+						
+						<section className="jumbotron jumbotron-fluid text-center">
+							<h3>Admins</h3>
+							<p className="lead text-muted">
+							  All the admins are listed below
+							</p>
+							<div className="row">
+							  { admins.length > 0 ? allAdmins : noAdmins }
+							</div>
+						</section>
 					</main>
 				</div>
-			</>
+			</div>
 	    );
 	  }
 }

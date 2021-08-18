@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from 'react-data-table-component';
 
-class SuperAdminDashboards extends React.Component {
+class AdminDashboard extends React.Component {
 	render() {
 		return(
 			<div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
@@ -27,4 +27,4 @@ class SuperAdminDashboards extends React.Component {
 	}
 }
 
-export default SuperAdminDashboards
+export default AdminDashboard

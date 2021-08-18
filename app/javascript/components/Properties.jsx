@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from 'react-data-table-component';
+import Header from "../components/Header";
 
 class Properties extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			properties: []
+			properties: [],
+			isLoggedIn: props.loggedIn,
+	      	current_user: props.user
 		}
 	}
 
@@ -76,7 +79,6 @@ class Properties extends React.Component {
 						];
 	    const { properties } = this.state;
 	  	const allProperties = <DataTable
-					        title="All Users"
 					        columns={columns}
 					        data={properties}
 					      />
@@ -89,33 +91,46 @@ class Properties extends React.Component {
 	      </div>
 	    );
 
+	    const userDashboardBtn = <Link
+					to={{ pathname: "/dashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.current_user
+			    		}}
+		            className="btn btn-sm custom-button"
+		         	role="button"
+			    >
+		        	Go to Dashboard
+		       	</Link>
+
 	    return (
-			<>
-				<section className="jumbotron jumbotron-fluid text-center">
-					<div className="container py-5">
-						<h1 className="display-4">Properties</h1>
-						<p className="lead text-muted">
-						  All the Properties are listed below
-						</p>
-					</div>
-				</section>
+			<div className="container">
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
+				<div className="d-flex flex-row-reverse">
+					{userDashboardBtn}
+				</div>
 				<div className="py-5">
 					<main className="container">
 						<div className="text-right mb-3">
-							<Link to={"/newProperty"} className="btn custom-button">
+							<Link to={"/newProperty"} className="btn btn-md custom-button">
 								Create New Property
 							</Link>
 							&nbsp;&nbsp;&nbsp;
-							<Link to="/superAdminDashboard" className="btn custom-button">
+							<Link to="/superAdminDashboard" className="btn btn-md custom-button">
 							 	Go to Super Admin Dashboard
 							</Link>
 						</div>
-						<div className="row">
-						  { properties.length > 0 ? allProperties : noProperty }
-						</div>
+						<section className="jumbotron jumbotron-fluid text-center">
+							<h3>Properties</h3>
+							<p className="lead text-muted">
+							  All the Properties are listed below
+							</p>
+							<div className="row">
+							  { properties.length > 0 ? allProperties : noProperty }
+							</div>
+						</section>
 					</main>
 				</div>
-			</>
+			</div>
 	    );
 	}
 }

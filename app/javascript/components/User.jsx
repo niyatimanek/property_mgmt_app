@@ -1,17 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 class User extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { user: {
-			id: this.props.id,
-			first_name: '',
-			last_name: '',
-			username: '',
-			password: '',
-			role: '', 
-		},errorMessage: []};
+				id: this.props.id,
+				first_name: '',
+				last_name: '',
+				username: '',
+				password: '',
+				role: '', 
+			},
+			errorMessage: [],
+			isLoggedIn: props.loggedIn,
+	      	current_user: props.user
+		};
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -87,9 +92,23 @@ class User extends React.Component {
 
 	render(){
 		const { user } = this.state;
+		const userDashboardBtn = <Link
+					to={{ pathname: "/dashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.current_user
+			    		}}
+		            className="btn btn-sm custom-button"
+		         	role="button"
+			    >
+		        	Go to Dashboard
+		       	</Link>
 
 		return(
-			<div className="container mt-5">
+			<div className="container">
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
+				<div className="d-flex flex-row-reverse">
+					{userDashboardBtn}
+				</div>
 				<div className="row">
 					{ this.state.errorMessage.length > 0 &&
 						<div className="alert alert-danger" role="alert">
@@ -99,9 +118,9 @@ class User extends React.Component {
 						</div>
 					}
 				  	<div className="col-sm-12 col-lg-6 offset-lg-3">
-					    <h1 className="font-weight-normal mb-5">
+					    <h3 className="font-weight-normal mb-5">
 					      {`Edit ${user.role}`} 
-					    </h1>
+					    </h3>
 					    <form onSubmit={this.onSubmit}>
 					      <div className="form-group">
 					        <label htmlFor="firstName">First Name *</label>

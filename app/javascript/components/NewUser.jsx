@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 class NewUser extends React.Component {
 	constructor(props) {
@@ -10,7 +11,9 @@ class NewUser extends React.Component {
 			username: "",
 			password: "",
 			role: this.props.match.params.role,
-			errorMessage: []
+			errorMessage: [],
+			isLoggedIn: props.loggedIn,
+	      	current_user: props.user
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -66,8 +69,22 @@ class NewUser extends React.Component {
 
 	render(){
 		const role = this.state.role;
+		const userDashboardBtn = <Link
+					to={{ pathname: "/dashboard",
+			        	  loggedIn: this.state.isLoggedIn,
+			        	  user: this.state.current_user
+			    		}}
+		            className="btn btn-sm custom-button"
+		         	role="button"
+			    >
+		        	Go to Dashboard
+		       	</Link>
 		return(
-			<div className="container mt-5">
+			<div className="container">
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
+				<div className="d-flex flex-row-reverse">
+					{userDashboardBtn}
+				</div>
 				<div className="row">
 					{ this.state.errorMessage.length > 0 &&
 						<div className="alert alert-danger" role="alert">
@@ -128,8 +145,8 @@ class NewUser extends React.Component {
 					      <button type="submit" className="btn custom-button mt-3">
 					        {`Create ${role}`}
 					      </button>
-					      <Link to={`/${role}`} className="btn btn-link mt-3">
-					        {`Back to ${role}`}
+					      <Link to={`/${role}s`} className="btn btn-link mt-3">
+					        {`Back to ${role}s`}
 					      </Link>
 					    </form>
 				  	</div>
