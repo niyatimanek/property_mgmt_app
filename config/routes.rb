@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       put 'properties/update/:id', to: 'properties#update'
       put 'properties/deactivate/:id', to: 'properties#deactivate'
       put 'properties/buy/:id', to: 'properties#buy'
+      get 'properties/get_user_properties', to: 'properties#get_user_properties'
+      get 'properties/get_admin_properties', to: 'properties#get_admin_properties'
     end
   end
   namespace :api do
@@ -20,7 +22,6 @@ Rails.application.routes.draw do
       get 'users/show/:id', to: 'users#show'
       put 'users/update/:id', to: 'users#update'
       put 'users/deactivate/:id', to: 'users#deactivate'
-      get 'users/get_properties', to: 'users#get_properties'
     end
   end
   root 'homepage#index'

@@ -26,7 +26,7 @@ class NewUser extends React.Component {
 	}
 
 	componentDidMount(){
-		const url = "/api/v1/users/index?role=admin";
+		const url = "/api/v1/users/index?role[]=admin&role[]=super_admin";
 		fetch(url)
 			.then(response => {
 				if (response.ok) {

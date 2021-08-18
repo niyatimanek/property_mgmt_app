@@ -38,13 +38,6 @@ class Api::V1::UsersController < ApplicationController
     render json: {message: 'User Deactivated'}
   end
 
-  def get_properties
-    if !current_user.nil?
-      properties = current_user.properties
-      render json: { user: current_user, properties: properties, loggedIn: true }
-    end
-  end
-
   private
 
   def user_params

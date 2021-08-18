@@ -47,6 +47,21 @@ class Api::V1::PropertiesController < ApplicationController
     render json: {message: 'Property sold successfully'}
   end
 
+  def get_user_properties
+    if !current_user.nil?
+      properties = current_user.properties 
+      render json: { user: current_user, properties: properties, loggedIn: true }
+    end
+  end
+
+
+  def get_admin_properties
+    if !current_user.nil?
+      properties = Property.where(admin_id: current_user.id)
+      render json: { user: current_user, properties: properties, loggedIn: true }
+    end
+  end
+
   private
 
   def property_params

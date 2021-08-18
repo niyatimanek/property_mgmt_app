@@ -8,7 +8,7 @@ class SuperAdminDashboards extends React.Component {
 	    super(props);
 	    this.state = {
 	      isLoggedIn: props.loggedIn,
-	      user: props.user
+	      current_user: props.user
 	    }
 	 }
 
@@ -16,16 +16,17 @@ class SuperAdminDashboards extends React.Component {
 		const userDashboardBtn = <Link
 					to={{ pathname: "/dashboard",
 			        	  loggedIn: this.state.isLoggedIn,
-			        	  user: this.state.user
+			        	  user: this.state.current_user
 			    		}}
 		            className="btn btn-sm custom-button"
 		         	role="button"
 			    >
 		        	Go to Dashboard
 		       	</Link>
+		       	
 		return(
 			<div className="container">
-				<Header loggedIn={this.state.isLoggedIn} user={this.state.user}/>
+				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
 				<div className="d-flex flex-row-reverse">
 					{userDashboardBtn}
 				</div>

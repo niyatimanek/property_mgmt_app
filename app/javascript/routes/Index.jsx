@@ -14,6 +14,7 @@ import NewProperty from "../components/NewProperty";
 import Property from "../components/Property";
 import Login from "../components/Login";
 import MyProperties from "../components/MyProperties";
+import AdminPropertyUpdate from "../components/AdminPropertyUpdate";
 
 export default (
   <Router>
@@ -32,6 +33,7 @@ export default (
       <Route path="/property/:id" exact component={Property} />
       <Route path="/login" exact component={Login} />
       <Route path="/myProperties" exact component={MyProperties} />
+      <Route path="/admin_property/:id" exact component={AdminPropertyUpdate} />
     </Switch>
   </Router>
 );

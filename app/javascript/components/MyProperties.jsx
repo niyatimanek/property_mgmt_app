@@ -14,7 +14,7 @@ class MyProperties extends React.Component {
 	}
 
 	componentDidMount(){
-		const url = '/api/v1/users/get_properties';
+		const url = '/api/v1/properties/get_user_properties';
 		fetch(url)
 			.then(async response => {
 				const isJson = response.headers.get('content-type')?.includes('application/json');

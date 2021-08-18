@@ -57,18 +57,6 @@ class Property extends React.Component {
 		this.setState({property});
 	}
 
-	selectCountry(val){
-		var property = {...this.state.property};
-		property.country = val;
-		this.setState({ property });
-	}
-
-	selectState(val){
-		var property = {...this.state.property};
-		property.state = val;
-		this.setState({ state });	
-	}
-
 	onSubmit() {
 		event.preventDefault();
 		const url = "/api/v1/properties/update/"+this.state.property.id;
@@ -105,7 +93,7 @@ class Property extends React.Component {
             }
 
 		})
-		.then(response => this.props.history.push(`/properties`))
+		.then(response => this.props.history.push(`/adminDashboard`))
       	.catch(error => {
       		this.setState({ errorMessage: Object.entries(error.errors).map(([key,value],i) => `${key} ${value}` ) });
       		console.log('There was an error!', error)
@@ -158,8 +146,7 @@ class Property extends React.Component {
 					          name="name"
 					          id="name"
 					          className="form-control"
-					          required
-					          onChange={this.onChange}
+					          disabled
 					          defaultValue={property.name}
 					        />
 					      </div>
@@ -170,8 +157,7 @@ class Property extends React.Component {
 					          name="address"
 					          id="address"
 					          className="form-control"
-					          required
-					          onChange={this.onChange}
+					          disabled
 					          defaultValue={property.address}
 					        />
 					      </div>
@@ -182,8 +168,7 @@ class Property extends React.Component {
 					          name="city"
 					          id="city"
 					          className="form-control"
-					          required
-					          onChange={this.onChange}
+					          disabled
 					          defaultValue={property.city}
 					        />
 					      </div>
@@ -194,8 +179,7 @@ class Property extends React.Component {
 					          name="zipcode"
 					          id="zipcode"
 					          className="form-control"
-					          required
-					          onChange={this.onChange}
+					          disabled
 					          defaultValue={property.zipcode}
 					        />
 					      </div>
@@ -204,8 +188,8 @@ class Property extends React.Component {
 					        <RegionDropdown
 						        country={property.country}
 						        value={property.state}
-						        onChange={(val) => this.selectState(val)}
 						        className="form-control"
+						        disabled
 						    />
 					      </div>
 					      <div className="form-group">
@@ -213,8 +197,8 @@ class Property extends React.Component {
 					        <CountryDropdown 
 					        	name="country"
 					        	value={property.country}
-					        	onChange={(val) => this.selectCountry(val)} 
 					        	className="form-control" 
+					        	disabled
 					        />
 					      </div>
 					      <div className="form-group">
@@ -234,7 +218,7 @@ class Property extends React.Component {
 					        	name="admin_id"
 					        	id="admin_id"
 					        	className="form-control" 
-					        	onChange={this.onChange}
+					        	disabled
 					        	value={property.admin_id}>
 					        	{allOwners}
 					        </select>
@@ -242,8 +226,8 @@ class Property extends React.Component {
 					      <button type="submit" className="btn custom-button mt-3">
 					        Update Property
 					      </button>
-					      <Link to="/properties" className="btn btn-link mt-3">
-					        Back to properties
+					      <Link to="/adminDashboard" className="btn btn-link mt-3">
+					        Back to admin dashboard
 					      </Link>
 					    </form>
 				  	</div>
