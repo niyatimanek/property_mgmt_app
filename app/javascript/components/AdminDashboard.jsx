@@ -64,22 +64,10 @@ class AdminDashboard extends React.Component {
 	      </div>
 	    );
 
-		const userDashboardBtn = <Link
-					to={{ pathname: "/dashboard",
-			        	  loggedIn: this.state.isLoggedIn,
-			        	  user: this.state.current_user
-			    		}}
-		            className="btn btn-sm custom-button"
-		         	role="button"
-			    >
-		        	Go to Dashboard
-		       	</Link>
 		return(
 			<div className="container">
 				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
-				<div className="d-flex flex-row-reverse">
-					{userDashboardBtn}
-				</div>
+				
 				<div className="primary-color d-flex align-items-center justify-content-center">
 					<div className="jumbotron jumbotron-fluid bg-transparent">
 					  <div className="container secondary-color">

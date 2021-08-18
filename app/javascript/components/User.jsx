@@ -14,8 +14,8 @@ class User extends React.Component {
 				role: '', 
 			},
 			errorMessage: [],
-			isLoggedIn: props.loggedIn,
-	      	current_user: props.user
+			isLoggedIn: props.location.loggedIn,
+	      	current_user: props.location.user
 		};
 
 		this.onChange = this.onChange.bind(this);

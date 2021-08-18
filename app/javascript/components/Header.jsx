@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       isLoggedIn: props.loggedIn,
       user: props.user
@@ -27,6 +28,7 @@ class Header extends React.Component {
       isLoggedIn: false,
       user: {}
     })
+
   }
 
   handleClickLogout(){
@@ -55,19 +57,30 @@ class Header extends React.Component {
 
   render(){
     const isLoggedIn = this.state.isLoggedIn;
-    let logoutBtn = ''
+    let conditonalBtns = ''
     if(isLoggedIn){
-      logoutBtn = <div className="d-flex flex-row-reverse">
-                    <button onClick={this.handleClickLogout} className="btn btn-sm custom-button " role="button">Logout</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link
-                      to="/myProperties"
-                      className="btn btn-sm custom-button"
-                      role="button"
-                    >
-                      My Properties
-                    </Link>
-                  </div>
+      conditonalBtns = <div className="d-flex flex-row-reverse">
+                        <Link
+                        to={{ pathname: "/dashboard",
+                                loggedIn: this.state.isLoggedIn,
+                                user: this.state.current_user
+                            }}
+                              className="btn btn-sm custom-button"
+                            role="button"
+                        >
+                          Go to Dashboard
+                        </Link>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link
+                          to="/myProperties"
+                          className="btn btn-sm custom-button"
+                          role="button"
+                        >
+                          My Properties
+                        </Link>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onClick={this.handleClickLogout} className="btn btn-sm custom-button " role="button">Logout</button>
+                      </div>
     }
     return(
       <div className="container">
@@ -82,8 +95,7 @@ class Header extends React.Component {
             </div>
           </div>
         </div>
-        
-        {logoutBtn}
+        {conditonalBtns}
       </div>
     )
   }

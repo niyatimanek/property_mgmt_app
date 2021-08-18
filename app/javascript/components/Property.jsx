@@ -18,8 +18,8 @@ class Property extends React.Component {
 			},
 			errorMessage: [],
 			owners: [],
-			isLoggedIn: props.loggedIn,
-	      	current_user: props.user
+			isLoggedIn: props.location.loggedIn,
+	      	current_user: props.location.user
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -121,23 +121,11 @@ class Property extends React.Component {
 		const approvals_list = approval_status.map((approval, index) => (
 			<option key={index} value={approval.value}>{`${approval.name}`}</option>
 		));
-		const userDashboardBtn = <Link
-					to={{ pathname: "/dashboard",
-			        	  loggedIn: this.state.isLoggedIn,
-			        	  user: this.state.current_user
-			    		}}
-		            className="btn btn-sm custom-button"
-		         	role="button"
-			    >
-		        	Go to Dashboard
-		       	</Link>
 
 		return(
 			<div className="container">
 				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
-				<div className="d-flex flex-row-reverse">
-					{userDashboardBtn}
-				</div>
+				
 				<div className="row">
 					{ this.state.errorMessage.length > 0 &&
 						<div className="alert alert-danger" role="alert">

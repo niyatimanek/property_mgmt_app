@@ -9,8 +9,8 @@ class Users extends React.Component {
 		this.state = {
 			users: [],
 			role: "user",
-			isLoggedIn: props.loggedIn,
-	      	current_user: props.user
+			isLoggedIn: props.location.loggedIn,
+	      	current_user: props.location.user
 		};
 	}
 
@@ -87,23 +87,10 @@ class Users extends React.Component {
 	      </div>
 	    );
 
-	    const userDashboardBtn = <Link
-					to={{ pathname: "/dashboard",
-			        	  loggedIn: this.state.isLoggedIn,
-			        	  user: this.state.current_user
-			    		}}
-		            className="btn btn-sm custom-button"
-		         	role="button"
-			    >
-		        	Go to Dashboard
-		       	</Link>
-
 	    return (
 			<div className="container">
 				<Header loggedIn={this.state.isLoggedIn} user={this.state.current_user}/>
-				<div className="d-flex flex-row-reverse">
-					{userDashboardBtn}
-				</div>
+				
 				<div className="py-5">
 					<main className="container">
 						<div className="text-right mb-3">
